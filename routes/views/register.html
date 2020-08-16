@@ -1,0 +1,140 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Welcome to MY MI</title>
+</head>
+<body style="background-color:black;">
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-6 m-auto">
+                <div class="card-header text-center text-white"><h1>Register</h1></div>
+                <div class="card card-body mb-5">
+                    <form id="registerForm" action="/users/register" method="POST">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text"
+                                   id="name"
+                                   name="name"
+                                   class="form-control"
+                                   placeholder="Enter Name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email"
+                                   id="email"
+                                   name="email"
+                                   class="form-control"
+                                   placeholder="Enter Email" />
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password"
+                                   id="password"
+                                   name="password"
+                                   class="form-control"
+                                   placeholder="Create Password" />
+                        </div>
+                        <div class="form-group">
+                            <label for="password2">Confirm Password</label>
+                            <input type="password"
+                                   id="password2"
+                                   name="password2"
+                                   class="form-control"
+                                   placeholder="Confirm Password" />
+                        </div>
+                        <div class="form-group">
+                            <label for="file">Insert Your Image</label>
+                            <input type="file"
+                                   id="image"
+                                   name="image"
+                                   class="form-control" />
+                        </div>
+                        <button onclick="upload()" type="submit" class="btn btn-block " style="background:#000000; color:#ffffff;">
+                            Register
+                        </button>
+                    </form>
+                    <p class="lead mt-4">Have An Account? <u><b><a href="/users/login" style="color:#000000;">Login</a> </b> </u></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-storage.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyCz9dGBFq1gYEOnRQ-HAGysy-o0imcYcwQ",
+            authDomain: "registrationform-b8d11.firebaseapp.com",
+            databaseURL: "https://registrationform-b8d11.firebaseio.com",
+            projectId: "registrationform-b8d11",
+            storageBucket: "registrationform-b8d11.appspot.com",
+            messagingSenderId: "114027457648",
+            appId: "1:114027457648:web:72eaab627e425ab1e958b5",
+            measurementId: "G-WCSZHQF6FG"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        const db = firebase.firestore()
+        const storage = firebase.storage()
+
+        function upload() {
+
+            const image = document.getElementById('image').files[0]
+            const email = document.getElementById('email').value
+            const name = document.getElementById('name').value
+
+            storage.ref(`users/${image.name}`).put(image);
+            
+
+            storage.ref('users').child(image.name).getDownloadUrl().then(url => {
+
+           
+                    db.collection('users').add({
+                        name: name,
+                        
+                        email: email,
+                        imageURL: url
+
+
+                    })
+            })
+
+        }
+
+            
+        
+            
+            
+            
+            
+        }
+               
+            
+           
+            
+        
+
+
+
+
+
+
+    </script>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>
