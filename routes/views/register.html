@@ -54,7 +54,7 @@
                                    name="image"
                                    class="form-control" />
                         </div>
-                        <button onclick="upload()" type="submit" class="btn btn-block " style="background:#000000; color:#ffffff;">
+                        <button type="submit" class="btn btn-block " style="background:#000000; color:#ffffff;">
                             Register
                         </button>
                     </form>
@@ -62,75 +62,8 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-storage.js"></script>
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyCz9dGBFq1gYEOnRQ-HAGysy-o0imcYcwQ",
-            authDomain: "registrationform-b8d11.firebaseapp.com",
-            databaseURL: "https://registrationform-b8d11.firebaseio.com",
-            projectId: "registrationform-b8d11",
-            storageBucket: "registrationform-b8d11.appspot.com",
-            messagingSenderId: "114027457648",
-            appId: "1:114027457648:web:72eaab627e425ab1e958b5",
-            measurementId: "G-WCSZHQF6FG"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-
-        const db = firebase.firestore()
-        const storage = firebase.storage()
-
-        function upload() {
-
-            const image = document.getElementById('image').files[0]
-            const email = document.getElementById('email').value
-            const name = document.getElementById('name').value
-
-            storage.ref(`users/${image.name}`).put(image);
-            
-
-            storage.ref('users').child(image.name).getDownloadUrl().then(url => {
-
-           
-                    db.collection('users').add({
-                        name: name,
-                        
-                        email: email,
-                        imageURL: url
-
-
-                    })
-            })
-
-        }
-
-            
-        
-            
-            
-            
-            
-        }
-               
-            
-           
-            
-        
-
-
-
-
-
-
-    </script>
-
-
+    </div>         
+      
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
